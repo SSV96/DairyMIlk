@@ -3,33 +3,38 @@ const { Schema } = mongoose;
 
 const orderSchema = new Schema(
   {
-    emailID: {
+    EmailID: {
       type: String,
       trim: true,
       required: true,
     },
-    customerName: {
+    CustomerName: {
       type: String,
       trim: true,
       required: true,
     },
-    quantity: {
+    Quantity: {
       type: Number,
       required: true,
+    },
+    Status: {
+      type: String,
     },
   },
   { timestamps: true }
 );
 
-const milkStock = new Schema(
+const InventorySchema = new Schema(
   {
-    stock: { type: Number, required: true },
+    Stock: { type: String, required: true, unique: true },
+    Current_Quantity: { type: Number, default: 0 },
+    Max_Quantity: { type: Number, default: 0 },
   },
   { timestamps: true }
 );
 
 const order = mongoose.model("order", orderSchema);
 
-const milkFactory = mongoose.model("MilkDairy", milkStock);
+const Inventory = mongoose.model("Inventory", InventorySchema);
 
-module.exports = { order, milkFactory };
+module.exports = { order, Inventory };
